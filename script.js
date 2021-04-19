@@ -103,6 +103,7 @@ fetch(
       .attr("x", w / 2)
       .attr("y", h - paddingY + 40)
       .attr("text-anchor", "middle")
+      .attr("font-weight", "bold")
       .text("Year");
 
     svg
@@ -115,6 +116,7 @@ fetch(
       .append("text")
       .attr("text-anchor", "middle")
       .attr("transform", `translate(${40}, ${h / 2}) rotate(-90)`)
+      .attr("font-weight", "bold")
       .text("GDP");
 
     const tooltip = svg
