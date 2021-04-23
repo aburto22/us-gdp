@@ -8,6 +8,7 @@ body {
   background: radial-gradient(farthest-corner at 50% 60%, rgb(109, 197, 255), rgb(65, 124, 253));
   background-repeat: no-repeat;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 svg {
@@ -25,7 +26,6 @@ main {
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
   text-align: center;
 }
 
@@ -41,4 +41,10 @@ main {
 
 #tooltip {
   font-size: 0.9rem;
+}
+
+footer {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 3rem;
 }
