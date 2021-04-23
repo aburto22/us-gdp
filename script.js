@@ -32,28 +32,6 @@ fetch(
 
     const dataset = json.data.map((d) => [parseTime(d[0]), d[1]]);
 
-    function splitText(str, num = 8) {
-      const strSplit = str.split(" ");
-      const newArr = [];
-
-      let tempStr = "";
-      for (let i = 0; i < strSplit.length; i++) {
-        if ((tempStr + strSplit[i]).length <= num) {
-          tempStr += strSplit[i] + " ";
-        } else {
-          newArr.push(tempStr);
-          tempStr = strSplit[i] + " ";
-        }
-      }
-
-      newArr.push(tempStr);
-
-      if (newArr[0] === "") newArr.shift();
-
-      return newArr;
-    }
-
-    const min = d3.min(dataset, (d) => d[1]);
     const max = d3.max(dataset, (d) => d[1]);
 
     const yScale = d3
