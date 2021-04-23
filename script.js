@@ -11,7 +11,7 @@ function getQuarter(str) {
 
 const w = 850;
 const h = 500;
-const paddingX = 90;
+const paddingX = 100;
 const paddingY = 40;
 
 const svg = d3
@@ -32,6 +32,27 @@ fetch(
 
     const dataset = json.data.map((d) => [parseTime(d[0]), d[1]]);
 
+    function splitText(str, num = 8) {
+      const strSplit = str.split(" ");
+      const newArr = [];
+
+      let tempStr = "";
+      for (let i = 0; i < strSplit.length; i++) {
+        if ((tempStr + strSplit[i]).length <= num) {
+          tempStr += strSplit[i] + " ";
+        } else {
+          newArr.push(tempStr);
+          tempStr = strSplit[i] + " ";
+        }
+      }
+
+      newArr.push(tempStr);
+
+      if (newArr[0] === "") newArr.shift();
+
+      return newArr;
+    }
+
     const min = d3.min(dataset, (d) => d[1]);
     const max = d3.max(dataset, (d) => d[1]);
 
@@ -45,7 +66,6 @@ fetch(
       .scaleTime()
       .domain([dataset[0][0], dataset[dataset.length - 1][0]])
       .range([paddingX, w - paddingX]);
-    //.nice();
 
     const dataWidth = (w - 2 * paddingX) / dataset.length;
 
@@ -66,6 +86,7 @@ fetch(
           d3.select(this).attr("data-date"),
           d3.select(this).attr("data-gdp"),
         ];
+
         tooltip
           .attr("data-date", info[0])
           .selectAll("text")
@@ -75,9 +96,16 @@ fetch(
             if (i == 0) {
               return getQuarter(val);
             } else {
-              return val + " billion USD";
+              return "$" + Intl.NumberFormat().format(val) + " billion USD";
             }
           });
+
+        const tooltipTextWidth = Number(
+          document.querySelector("#tooltip-1").getBBox().width
+        );
+
+        tooltip.select("rect").attr("width", tooltipTextWidth + 35);
+
         tooltip.interrupt().transition().duration(100).style("opacity", 1);
       })
       .on("mouseout", function () {
@@ -90,7 +118,9 @@ fetch(
       });
 
     const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
+    const yAxis = d3
+      .axisLeft(yScale)
+      .tickFormat((d) => "$" + Intl.NumberFormat().format(d));
 
     svg
       .append("g")
@@ -115,15 +145,15 @@ fetch(
     svg
       .append("text")
       .attr("text-anchor", "middle")
-      .attr("transform", `translate(${40}, ${h / 2}) rotate(-90)`)
+      .attr("transform", `translate(${30}, ${h / 2}) rotate(-90)`)
       .attr("font-weight", "bold")
-      .text("GDP");
+      .text("GDP (in billion USD)");
 
     const tooltip = svg
       .append("g")
       .attr("transform", "translate(250, 150)")
       .attr("id", "tooltip")
-      .attr("fill", "rgb(255, 190, 10)")
+      .attr("fill", "rgba(255, 190, 10, 0.95)")
       .style("opacity", 0);
 
     tooltip
@@ -137,10 +167,16 @@ fetch(
       .append("text")
       .attr("x", 15)
       .attr("y", 22)
+      .attr("id", "tooltip-0")
       .attr("fill", "white")
       .attr("font-weight", "bold");
 
-    tooltip.append("text").attr("x", 15).attr("y", 40).attr("fill", "white");
+    tooltip
+      .append("text")
+      .attr("id", "tooltip-1")
+      .attr("x", 15)
+      .attr("y", 40)
+      .attr("fill", "white");
 
     svg.on("mousemove", function (e) {
       const mouse = d3.pointer(e);

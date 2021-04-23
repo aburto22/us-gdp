@@ -25,7 +25,7 @@ main {
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
 }
 
@@ -36,15 +36,9 @@ main {
 }
 
 .bar:hover {
-  fill: rgb(255, 190, 10);
+  fill: rgb(255, 190, 10, 1);
 }
 
 #tooltip {
   font-size: 0.9rem;
-}
-
-@media (orientation: landscape) {
-  main {
-    align-items: flex-start;
-  }
 }
