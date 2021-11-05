@@ -18,23 +18,20 @@ body {
 svg {
   max-width: 100%;
   height: auto;
+  display: block;
+  margin: auto;
 }
 
 #title {
   font-weight: bolder;
-  font-size: 2.2rem;
-  margin-top: 3rem;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
+  font-size: 2rem;
+  margin: 1.5rem 1rem;
   text-align: center;
 }
 
-#container {
+main {
+  width: 100%;
+  text-align: center;
   padding: 0 1rem;
 }
 
@@ -48,11 +45,6 @@ main {
 
 footer {
   font-size: 0.8rem;
-  text-align: center;
-  margin: 1.5rem 1rem;
-}
-
-h1 {
   text-align: center;
   margin: 1.5rem 1rem;
 }

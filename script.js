@@ -15,7 +15,7 @@ const paddingX = 100;
 const paddingY = 40;
 
 const svg = d3
-  .select("#container")
+  .select("main")
   .append("svg")
   .attr("width", w)
   .attr("height", h)
