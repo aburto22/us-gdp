@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
 }
 
 body {
@@ -9,10 +10,14 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 svg {
   max-width: 100%;
+  height: auto;
 }
 
 #title {
@@ -23,16 +28,14 @@ svg {
 
 main {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   text-align: center;
 }
 
 #container {
-  min-width: 300px;
-  min-height: 300px;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .bar:hover {
@@ -46,5 +49,10 @@ main {
 footer {
   font-size: 0.8rem;
   text-align: center;
-  margin-top: 3rem;
+  margin: 1.5rem 1rem;
+}
+
+h1 {
+  text-align: center;
+  margin: 1.5rem 1rem;
 }
